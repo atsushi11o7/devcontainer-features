@@ -1,0 +1,13 @@
+{
+  "id": "base-utils",
+  "version": "1.0.0",
+  "name": "Base Utils",
+  "description": "Common CLI utilities for devcontainers",
+  "options": {
+    "configureLocale": {
+      "type": "boolean",
+      "default": true,
+      "description": "Configure en_US.UTF-8 locale"
+    }
+  }
+}
