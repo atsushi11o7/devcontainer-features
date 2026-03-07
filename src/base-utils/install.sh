@@ -2,8 +2,11 @@
 set -e
 
 CONFIGURE_LOCALE="${CONFIGURELOCALE:-true}"
+TIMEZONE="${TIMEZONE:-Asia/Tokyo}"
 
 echo "Installing base-utils..."
+
+export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
 
@@ -19,7 +22,11 @@ apt-get install -y --no-install-recommends \
   vim \
   ca-certificates \
   gnupg \
-  bash-completion
+  bash-completion \
+  tzdata
+
+ln -sf /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime
+echo "$TIMEZONE" > /etc/timezone
 
 if [ "$CONFIGURE_LOCALE" = "true" ]; then
   locale-gen en_US.UTF-8

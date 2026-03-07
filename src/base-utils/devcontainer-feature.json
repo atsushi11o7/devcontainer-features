@@ -8,6 +8,11 @@
       "type": "boolean",
       "default": true,
       "description": "Configure en_US.UTF-8 locale"
+    },
+    "timezone": {
+      "type": "string",
+      "default": "Asia/Tokyo",
+      "description": "Set the timezone (e.g. Asia/Tokyo, UTC, America/New_York)"
     }
   }
 }

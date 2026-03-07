@@ -22,10 +22,11 @@ Add the following to your `devcontainer.json`:
 
 #### Installed packages
 
-`locales`, `git`, `curl`, `wget`, `jq`, `less`, `unzip`, `tree`, `vim`, `ca-certificates`, `gnupg`, `bash-completion`
+`locales`, `git`, `curl`, `wget`, `jq`, `less`, `unzip`, `tree`, `vim`, `ca-certificates`, `gnupg`, `bash-completion`, `tzdata`
 
 #### Options
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `configureLocale` | boolean | `true` | Configure `en_US.UTF-8` locale |
+| `timezone` | string | `Asia/Tokyo` | Set the timezone |
