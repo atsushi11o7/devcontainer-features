@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-CONFIGURE_LOCALE="${CONFIGURELOCALE:-true}"
-TIMEZONE="${TIMEZONE:-Asia/Tokyo}"
+LOCALE="${LOCALE:-}"
+TIMEZONE="${TIMEZONE:-}"
 
 echo "Installing base-utils..."
 
@@ -11,7 +11,6 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 
 apt-get install -y --no-install-recommends \
-  locales \
   git \
   curl \
   wget \
@@ -25,12 +24,21 @@ apt-get install -y --no-install-recommends \
   bash-completion \
   tzdata
 
-ln -sf /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime
-echo "$TIMEZONE" > /etc/timezone
+if [ -n "$TIMEZONE" ]; then
+  ln -sf "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
+  echo "$TIMEZONE" > /etc/timezone
+fi
 
-if [ "$CONFIGURE_LOCALE" = "true" ]; then
-  locale-gen en_US.UTF-8
-  update-locale LANG=en_US.UTF-8
+if [ -n "$LOCALE" ]; then
+  case "$LOCALE" in
+    C.UTF-8|C|POSIX)
+      ;;
+    *)
+      apt-get install -y --no-install-recommends locales
+      locale-gen "$LOCALE"
+      ;;
+  esac
+  printf 'LANG=%s\n' "$LOCALE" > /etc/default/locale
 fi
 
 rm -rf /var/lib/apt/lists/*
